@@ -511,7 +511,7 @@ class PhoneInput extends React.Component {
   }
 
   handleInput = (e) => {
-    const { value } = e.target;
+    let { value } = e.target;
     const { prefix, onChange } = this.props;
 
     let formattedNumber = this.props.disableCountryCode ? '' : prefix;
@@ -524,6 +524,11 @@ class PhoneInput extends React.Component {
         newSelectedCountry.dialCode;
 
       const updatedInput = prefix+mainCode;
+
+      if(e.nativeEvent?.inputType === undefined && !value.startsWith(updatedInput)){
+        value = updatedInput + value
+      };
+
       if (value.slice(0, updatedInput.length) !== updatedInput) return;
     }
 
