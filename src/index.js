@@ -207,7 +207,7 @@ class PhoneInput extends React.Component {
     ) ? countryGuess.dialCode : '';
 
     let formattedNumber;
-    formattedNumber = (inputNumber === '' && countryGuess === 0) ? '' :
+    formattedNumber = (inputNumber === '') ? '' :
     this.formatNumber(
       (props.disableCountryCode ? '' : dialCode) + inputNumber,
       countryGuess.name ? countryGuess : undefined
@@ -641,7 +641,7 @@ class PhoneInput extends React.Component {
   handleInputFocus = (e) => {
     // if the input is blank, insert dial code of the selected country
     if (this.numberInputRef) {
-      if (this.numberInputRef.value === this.props.prefix && this.state.selectedCountry && !this.props.disableCountryCode) {
+      if ((this.numberInputRef.value === this.props.prefix || this.state.formattedNumber.length === 0) && this.state.selectedCountry && !this.props.disableCountryCode) {
         this.setState({
           formattedNumber: this.props.prefix + this.state.selectedCountry.dialCode
         }, () => {this.props.jumpCursorToEnd && setTimeout(this.cursorToEnd, 0)});
